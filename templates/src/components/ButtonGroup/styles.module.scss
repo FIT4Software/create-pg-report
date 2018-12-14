@@ -1,0 +1,25 @@
+.component {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  div {
+    flex: 1 1 auto;
+  }
+  div span {
+    border-radius: 0;
+  }
+  div:first-child span {
+    border-top-left-radius: var(--default-border-radius) !important;
+    border-bottom-left-radius: var(--default-border-radius) !important;
+  }
+  div:last-child span {
+    border-top-right-radius: var(--default-border-radius) !important;
+    border-bottom-right-radius: var(--default-border-radius) !important;
+  }
+}
+
+.hide {
+  display: none;
+}

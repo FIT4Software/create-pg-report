@@ -1,0 +1,27 @@
+.component {
+  color: black;
+  border-color: #f2efea;
+  background-color: #ccc;
+  display: inline-block; // padding: var(--default-padding);
+  border-radius: 3px;
+  width: 100%;
+  line-height: 2.7;
+  text-align: center;
+  cursor: pointer;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  user-select: none;
+  box-shadow: 0 2px 5px #a9a9a9;
+  &.disable {
+    cursor: not-allowed;
+    background-color: lightgrey;
+  }
+  &.active {
+    background-color: var(--primary);
+    box-shadow: inset 0 2px 5px #a9a9a9;
+  }
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,9 @@
+.defition-option {
+  display: flex;
+  justify-content: space-between;
+  .icon {
+    color: red;
+    line-height: 24px;
+    cursor: pointer;
+  }
+}

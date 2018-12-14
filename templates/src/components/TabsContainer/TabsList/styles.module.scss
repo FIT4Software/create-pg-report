@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  position: absolute;
+  margin-top: -30px;
+}
+.list {
+  display: inline-flex;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9; //position: absolute;
+  margin: 0 3px;
+}
+
+.icon {
+  color: #787878;
+  min-width: 32px;
+  margin: 2px;
+  span {
+    cursor: pointer;
+    padding: 7px 12px;
+    &:hover {
+      background: var(--primary) !important;
+      color: #fff;
+    }
+  }
+}

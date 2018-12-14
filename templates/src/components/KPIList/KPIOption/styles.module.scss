@@ -1,0 +1,54 @@
+.kpi-option {
+  flex: 1;
+  background: #fff;
+  margin: 5px;
+  text-align: center;
+  color: #777;
+  border-radius: 5px;
+  min-width: 250px;
+  &:hover {
+    background: #f26178;
+    color: #fff;
+  }
+  span {
+    display: none;
+  }
+  &:hover span {
+    display: block;
+  }
+  &:hover span::before {
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+
+  h3 {
+    font-weight: normal;
+    font-size: 14px;
+    margin: 8px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 8px;
+  }
+  span {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: -26px;
+  }
+}
+.selected {
+  background: #f26178;
+  color: #fff;
+}
+.selected:hover span::before {
+  transform: rotate(0deg) !important;
+}
+.selected span {
+  display: block;
+}
+.selected span::before {
+  transform: rotate(0deg);
+  display: inline-block;
+}

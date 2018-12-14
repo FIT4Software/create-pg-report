@@ -1,0 +1,74 @@
+.root {
+  display: inline-block;
+  color: #787878;
+  border: 1px solid #dbdbdb;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: var(--default-border-radius) !important;
+  .button {
+    padding: 4px 7px;
+    cursor: pointer;
+    &:hover,
+    &:active,
+    &:focus,
+    &.active {
+      color: #fff;
+      border-color: #8ebc00;
+      background-color: #8ebc00;
+      box-shadow: 0 3px 5px var(--default-shadow-color);
+    }
+    > span {
+      padding: 4px;
+      &.icon {
+        transition: 0.3s all;
+        float: right;
+        &.rotate {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .list {
+    visibility: hidden;
+    height: 0px;
+    // transition: all 1s ease-out;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    padding: 0;
+    outline: 0;
+    list-style: none;
+    z-index: 999;
+    li {
+      padding: 1px 5px 1px 5px;
+      line-height: 24px;
+      min-height: 24px;
+      cursor: default;
+      &:hover {
+        color: #fff;
+        border-color: #8ebc00;
+        background-color: #8ebc00;
+        box-shadow: 0 3px 5px var(--default-shadow-color);
+      }
+
+      &.active {
+        color: #fff;
+        background-color: #8ebc00;
+      }
+    }
+  }
+  .show {
+    visibility: visible;
+    box-shadow: 0 3px 5px var(--default-shadow-color);
+  }
+
+  .onTop {
+    box-shadow: 0 -3px 5px var(--default-shadow-color);
+    li {
+      &:hover {
+        box-shadow: 0 -3px 5px var(--default-shadow-color);
+      }
+    }
+  }
+}

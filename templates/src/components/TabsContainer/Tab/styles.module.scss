@@ -1,0 +1,31 @@
+.container {
+  padding: var(--default-padding);
+
+  transition: all 0.2s ease-out;
+  border-bottom: 2px solid white;
+  margin-bottom: -2px;
+  color: #525252;
+  cursor: pointer;
+  font-size: 12px;
+  flex: 0 0 auto;
+  border-bottom: 2px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 2px solid transparent;
+}
+
+.container:active {
+  background-color: white;
+  color: var(--primary);
+}
+
+.active {
+  background-color: white;
+  font-weight: 600;
+  color: #525252;
+  border-bottom: 2px solid var(--light);
+  border-left: 1px solid var(--primary);
+  border-right: 1px solid var(--primary);
+  border-top: 2px solid var(--primary);
+  border-radius: var(--default-border-radius);
+}

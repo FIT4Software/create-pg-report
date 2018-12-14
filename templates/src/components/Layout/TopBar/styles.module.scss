@@ -1,0 +1,9 @@
+.topbar {
+  position: relative;
+  background-color: var(--dark);
+  height: var(--topbar-height);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 11;
+}

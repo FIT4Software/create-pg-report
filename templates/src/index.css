@@ -1,0 +1,126 @@
+@import './resources/scrollbar.min.css';
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+}
+
+.preload {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: #fff;
+  background-color: rgba(73, 76, 91, 0.95);
+  background-image: url(resources/pglogo.png);
+  background-position: center center;
+  background-size: 10%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 60rem 5rem rgb(0, 0, 0, 0.5);
+  animation: animation-logo 1s infinite;
+}
+
+@keyframes animation-logo {
+  0%,
+  100% {
+    background-size: 10%;
+  }
+
+  50% {
+    background-size: 10.5%;
+  }
+}
+#root {
+  background-image: url(./resources/bg-wrapper-blue.png);
+  background-color: #0046ad !important;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: #ebebeb;
+}
+*:focus {
+  outline: none;
+}
+
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #8ebc00;
+  --primary-alpha: #007bffd9;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #000;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --default-shadow-color: #ccc;
+  --default-padding: 0.5rem;
+  --default-margin: 0.5rem;
+  --default-border: 0.15rem;
+  --default-border-radius: 3px;
+  --default-color-disabled: #aeaeaf;
+  --topbar-height: 3rem;
+  --switch-height: 1.5rem;
+  --default-font-size: 1rem;
+  --font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', FontAwesome;
+}
+
+.multi-select {
+  font-size: 11px;
+  border-radius: var(--default-border-radius);
+}
+
+.dx-popup-wrapper > .dx-overlay-content {
+  border-radius: 0px !important;
+}
+
+.dxc-tooltip {
+  z-index: 2;
+}
+
+/* PIVOT  */
+
+.dx-pivotgrid-horizontal-headers td > span {
+  text-align: center;
+  white-space: normal;
+}
+
+td.dx-area-description-cell.dx-pivotgrid-background {
+  background: white !important;
+}
+
+table.dx-pivotgrid-border > tr:first-child {
+  display: none;
+}
+
+td.dx-row-total.dx-total.dx-pivotgrid-expanded.dx-last-cell {
+  color: #656565;
+  font-weight: 500;
+}
+
+td.dx-last-cell > span {
+  color: #656565;
+}
+
+.dx-datagrid-header-panel .dx-toolbar {
+  padding: 5px;
+}

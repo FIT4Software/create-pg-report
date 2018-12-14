@@ -1,0 +1,95 @@
+.ModalButton {
+  background: #fff;
+  cursor: pointer;
+  border: 0px;
+  outline: 0px;
+  padding: 10px 10px;
+  color: #000;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: 0.3s background;
+  margin: 5px;
+  border-radius: var(--default-border-radius) !important;
+  &:hover {
+    color: #000;
+    background: rgb(245, 245, 245);
+  }
+  &:active {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+  }
+
+  i {
+    margin-right: 5px;
+  }
+  &.without-shadow,
+  &.without-shadow:active {
+    box-shadow: none !important;
+  }
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  &.primary {
+    color: #fff;
+    background: #2196f3;
+  }
+  &.primary:hover {
+    color: #fff;
+    background: #1f8be2;
+  }
+  &.hover-primary:hover {
+    color: #fff;
+    background: #2196f3;
+  }
+  &.secondary {
+    color: #fff;
+    background: #9e9e9e;
+  }
+  &.secondary:hover {
+    color: #fff;
+    background: #888888;
+  }
+  &.hover-secondary:hover {
+    color: #fff;
+    background: #9e9e9e;
+  }
+  &.success {
+    color: #fff;
+    background: #4caf50;
+  }
+  &.success:hover {
+    color: #fff;
+    background: #449e47;
+  }
+  &.hover-success:hover {
+    color: #fff;
+    background: #4caf50;
+  }
+  &.warning {
+    color: #fff;
+    background: #ff9800;
+  }
+  &.warning:hover {
+    color: #fff;
+    background: #e28802;
+  }
+  &.hover-warning:hover {
+    color: #fff;
+    background: #ff9800;
+  }
+  &.danger {
+    color: #fff;
+    background: #f44336;
+  }
+  &.danger:hover {
+    color: #fff;
+    background: #e03d32 !important;
+  }
+  &.hover-danger:hover {
+    color: #fff;
+    background: #f44336;
+  }
+  span {
+    margin-right: 5px;
+  }
+}

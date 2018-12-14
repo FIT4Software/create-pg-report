@@ -1,0 +1,33 @@
+.component {
+  font-size: 20px;
+  padding: 0;
+  color: var(--light);
+  height: var(--topbar-height);
+  line-height: 0.9;
+  font-weight: 400;
+  width: 48px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  transition: all 50ms ease-out;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  &:active,
+  &.active {
+    background-color: white;
+    font-weight: 400;
+    color: #000;
+  }
+  &.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  &.disabled:hover {
+    background-color: transparent !important;
+  }
+}
+
+span + span {
+  margin-left: 0.5rem;
+}

@@ -1,0 +1,36 @@
+.panel {
+  padding: 20px 10px;
+  overflow: auto;
+  > div {
+    padding: 10px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      h1 {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .expand-icon {
+        cursor: pointer;
+        transition: 0.3s all;
+      }
+      .rotate {
+        transform: rotate(-180deg);
+      }
+    }
+    section {
+      margin-top: 10px;
+    }
+    .hide {
+      display: none;
+    }
+  }
+}
+.border-top {
+  border-top: 1px solid #c5c5c5;
+}
+.border-bottom {
+  border-bottom: 1px solid #c5c5c5;
+}

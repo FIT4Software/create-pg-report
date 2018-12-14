@@ -1,0 +1,17 @@
+.root {
+  padding: 2px 5px;
+  margin: 1px 3px 1px 0;
+  background: var(--primary);
+  color: #1d1d1d;
+  border-radius: var(--default-border-radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 45%;
+  .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+  }
+}

@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  height: calc(100vh - 48px - 44px);
+  > div {
+    position: relative;
+    overflow: auto;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    > div {
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+}

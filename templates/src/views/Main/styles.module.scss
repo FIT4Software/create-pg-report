@@ -1,0 +1,8 @@
+.mainContainer {
+  padding: 5px;
+  position: relative;
+  width: 100vw;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: calc(100vh - var(--topbar-height));
+}

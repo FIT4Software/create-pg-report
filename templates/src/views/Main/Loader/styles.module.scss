@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  & .background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #222;
+  }
+  & .content {
+    text-align: center;
+    img {
+      width: 120px;
+    }
+  }
+  & .text {
+    margin-top: 10px;
+    & span {
+      margin-right: 10px;
+    }
+  }
+}
