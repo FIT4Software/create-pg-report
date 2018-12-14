@@ -1,7 +1,7 @@
 const createReactApp = (appName, shell) => {
   return new Promise(resolve => {
     if (appName) {
-      shell.exec(`create-react-app ${appName}`, () => {
+      shell.exec(`npx create-react-app ${appName}`, () => {
         console.log('Created react app!')
         resolve(true)
       })
