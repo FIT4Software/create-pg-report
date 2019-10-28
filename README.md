@@ -23,3 +23,9 @@ npm install --save https://github.com/FIT4Software/create-pg-report.git -g
 ```sh
 create-pg-report report-name
 ```
+
+## Translation by DB
+
+To configure the translation by DB make the next steps:
+1- Go to .env file and set the report name in the variable "REACT_APP_REPORT_NAME"
+2- Go to the database and add the translation json file of the report in the table "Translations" of database "OpsDataStore"
