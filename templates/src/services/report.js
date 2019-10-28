@@ -1,25 +1,33 @@
 import axios from 'axios'
+import store from '../../src/redux/store'
+import { updataDataSource } from '../redux/ducks/dataSource'
 
 let currentData = {}
 
-function getReportData({
-  plantModel = {
-    departments: [],
-    lines: 0
-  },
-  timeOption = 1,
-  lineStatus = []
-}) {
+function getReportData(
+  lineId,
+  lineDesc,
+  {
+    selected = {
+      departments: [],
+      lines: 0,
+      timeOption: 'Last3Days'
+    }
+  }
+) {
   return axios
     .get('https://jsonplaceholder.typicode.com/todos', {
       params: {
-        plIdList: plantModel.lines.map(l => l.equipmentId).join(','),
-        timeOption,
-        lineStatus: lineStatus.length <= 0 ? 'All' : lineStatus.join('|')
+        lineId,
+        lineDesc,
+        plIdList: selected.lines.map(l => l.equipmentId).join(','),
+        timeOption: selected.timeOption
       }
     })
     .then(response => {
-      return (currentData = response.data)
+      currentData = response.data
+      store.dispatch(updataDataSource({ key: lineDesc, data: currentData }))
+      return currentData
     })
 }
 

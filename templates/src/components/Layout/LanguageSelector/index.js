@@ -9,10 +9,9 @@ class DateSelector extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      languages: getAvailableLanguages(),
-      selected: localStorage.i18nextLng || 'en'
-    })
+    getAvailableLanguages().then(languages =>
+      this.setState({ languages, selected: localStorage.i18nextLng || 'en' })
+    )
   }
 
   getSelectedDesc = () => {
@@ -22,17 +21,19 @@ class DateSelector extends Component {
   }
 
   onChange = lang => {
-    this.setState(
-      {
-        selected: lang.value
-      },
-      () => {
-        localStorage.setItem('iods-rpt-language', lang.value)
-        i18n.changeLanguage(lang.value, () => {
-          window.location.reload()
-        })
-      }
-    )
+    if (lang.value !== this.state.selected) {
+      this.setState(
+        {
+          selected: lang.value
+        },
+        () => {
+          localStorage.setItem('iods-rpt-language', lang.value)
+          i18n.changeLanguage(lang.value, () => {
+            window.location.reload()
+          })
+        }
+      )
+    }
   }
 
   render() {

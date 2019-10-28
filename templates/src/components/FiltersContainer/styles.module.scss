@@ -11,7 +11,6 @@
   height: calc(100vh - 48px);
   overflow: hidden;
   display: block;
-  z-index: 10;
   box-shadow: 0 20px 40px - 10px rgba(0, 0, 0, 0.5),
     0 0 1rem 0 rgba(0, 0, 0, 0.5);
   &.hide {

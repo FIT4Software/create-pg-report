@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { reactI18nextModule } from 'react-i18next'
 import localization from 'devextreme/localization'
 import dxLocales from '../resources/DX/messages'
+import axios from 'axios'
 
 function i18nInit() {
   i18n
@@ -13,8 +14,8 @@ function i18nInit() {
     .init({
       fallbackLng: 'en',
       load: 'all',
-      ns: ['translations'],
-      defaultNS: 'translations',
+      ns: [process.env.REACT_APP_REPORT_NAME],
+      defaultNS: process.env.REACT_APP_REPORT_NAME,
       debug: process.env.NODE_ENV !== 'production',
       interpolation: {
         escapeValue: false // not needed for react!!
@@ -23,7 +24,7 @@ function i18nInit() {
         wait: true
       },
       backend: {
-        loadPath: './locales/{{lng}}/{{ns}}.json'
+        loadPath: '../../api/Locales/getLanguage?report={{ns}}&language={{lng}}'
       }
     })
 
@@ -49,15 +50,13 @@ function i18nInit() {
   return i18n
 }
 
-function getAvailableLanguages() {
-  let languages = []
-  if (i18n && i18n.options) {
-    const keys = i18n.getResource('en', i18n.options.defaultNS, 'locales')
-    Object.keys(keys).forEach(key =>
-      languages.push({ value: key, text: keys[key] })
-    )
-  }
-  return languages
+function getAvailableLanguages(report = process.env.REACT_APP_REPORT_NAME) {
+  return axios.get(`../../api/locales/getLocales`).then(response =>
+    response.data.map(language => ({
+      text: language.LangName,
+      value: language.LangCode
+    }))
+  )
 }
 
 export { i18nInit, i18n, getAvailableLanguages }

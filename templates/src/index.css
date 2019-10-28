@@ -3,6 +3,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   color: #fff;
+  user-select: none;
 }
 
 .preload {
@@ -84,43 +85,102 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol', FontAwesome;
 }
 
+/* DX grid */
+
+.dx-datagrid-header-panel .dx-toolbar  {
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-menu  {
+  width: auto;
+}
+
+.dx-datagrid-filter-row .dx-menu .dx-menu-horizontal {
+  width: auto;
+}
+
+.dx-popup-wrapper .dx-calendar .dx-calendar-caption-button {
+  width: auto;
+}
+
+.dx-texteditor-input {
+  border-radius: 0 !important;
+}
+
 .multi-select {
-  font-size: 11px;
   border-radius: var(--default-border-radius);
 }
 
-.dx-popup-wrapper > .dx-overlay-content {
-  border-radius: 0px !important;
-}
-
-.dxc-tooltip {
-  z-index: 2;
-}
-
-/* PIVOT  */
-
-.dx-pivotgrid-horizontal-headers td > span {
-  text-align: center;
-  white-space: normal;
-}
-
-td.dx-area-description-cell.dx-pivotgrid-background {
-  background: white !important;
-}
-
-table.dx-pivotgrid-border > tr:first-child {
-  display: none;
-}
-
-td.dx-row-total.dx-total.dx-pivotgrid-expanded.dx-last-cell {
-  color: #656565;
-  font-weight: 500;
-}
-
-td.dx-last-cell > span {
-  color: #656565;
+.pg-darkred-color {
+  color: #fe1a0e;
 }
 
 .dx-datagrid-header-panel .dx-toolbar {
-  padding: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 0 5px;
+}
+
+.available-list .item,
+.selected-list .item {
+  font-size: 11px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* DX pivot */
+.dx-pivotgrid-fields-area[group='data'] tr {
+  display: none;
+}
+
+.dx-pivotgrid .dx-column-header .dx-pivotgrid-toolbar .dx-button,
+.dx-pivotgrid .dx-filter-header .dx-pivotgrid-toolbar .dx-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dx-grandtotal.dx-row-total {
+  background: #eaeaea !important;
+}
+
+.dx-pivotgrid .dx-pivotgrid-area td {
+  color: #484848 !important;
+}
+
+.dx-grandtotal.dx-row-total span {
+  color: #3a3a3a;
+  font-weight: bold;
+}
+
+.dx-pivotgrid-horizontal-headers {
+  justify-content: center;
+  line-height: 2.5;
+}
+
+#generic-pivot .dx-pivotgrid-fields-area[group='column'] tr {
+  display: none;
+}
+
+/* set width of pivot summary column */
+#generic-pivot .dx-area-column-cell,
+#generic-pivot .dx-area-column-cell .dx-scrollable-content,
+#generic-pivot .dx-area-column-cell .dx-scrollable-content table colgroup col,
+#generic-pivot .dx-area-column-cell .dx-scrollable-content > * {
+  width: 100px !important;
+}
+
+#generic-pivot .dx-area-data-cell,
+#generic-pivot .dx-area-data-cell .dx-scrollable-content,
+#generic-pivot .dx-area-data-cell .dx-scrollable-content table colgroup col,
+#generic-pivot .dx-area-data-cell .dx-scrollable-content > * {
+  width: 100px !important;
 }

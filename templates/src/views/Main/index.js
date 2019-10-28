@@ -1,27 +1,27 @@
-import React, { PureComponent } from 'react'
-import styles from './styles.module.scss'
+import React from 'react'
+import ErrorMessage from '../../components/ErrorMessage'
+import ReportDate from '../../components/ReportDate'
 import TabsContainer, {
   TabPanel,
   TabsContent,
   TabsList,
   Tab
 } from '../../components/TabsContainer'
-import ErrorMessage from '../../components/ErrorMessage'
-import { getReportData } from '../../services/report'
-import { showMsg } from '../../services/notification'
-import RawData from './RawData'
-import Loader from './Loader'
+import { getErrorMessages } from './../../services/filters'
+import { connect } from 'react-redux'
+import TabInfo from './Report/TabInfo'
+import styles from './styles.module.scss'
 
 const defaultState = {
   activeTab: 0,
-  data: [],
   error: {
     title: '',
+    received: false,
     messages: []
-  },
-  isLoading: true
+  }
 }
-class Main extends PureComponent {
+
+class Main extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,99 +29,102 @@ class Main extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    this.readReport()
+  componentDidMount = () => {
+    this.requiredFilters()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.filters !== this.props.filters) {
-      this.readReport()
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   return (
+  //     nextProps.filters.runTime !== this.props.filters.runTime ||
+  //     nextState.activeTab !== this.state.activeTab ||
+  //     nextState.error !== this.state.error
+  //   )
+  // }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.filters.runTime !== this.props.filters.runTime) {
+      this.setState({ activeTab: 0 })
+      this.requiredFilters()
     }
   }
 
-  render() {
-    const { t } = this.props
-    const { error, activeTab, isLoading, data } = this.state
+  render = () => {
+    const { t, filters, onFilterBtnClick } = this.props
+    const { error, activeTab } = this.state
 
-    if (isLoading)
+    if (error.messages.length > 0 || !error.received) {
       return (
-        <div className={styles.mainContainer}>
-          <Loader show text={t('Getting data, please wait')} />
-        </div>
+        <ErrorMessage
+          t={t}
+          onFilterBtnClick={onFilterBtnClick}
+          messageList={error.messages}
+          title={error.title}
+        />
       )
+    }
 
-    if (error.messages.length > 0)
-      return <ErrorMessage messageList={error.messages} title={error.title} />
-    else {
-      return (
-        <div className={styles.mainContainer}>
-          <TabsContainer
-            activeTab={activeTab}
-            onTabChange={tabIndex => this.setState({ activeTab: tabIndex })}
-          >
-            <TabsList>
-              <Tab>Raw Data</Tab>
-            </TabsList>
-            <TabsContent>
-              <TabPanel>
-                <RawData t={t} data={data} />
+    return (
+      <div className={styles.container}>
+        <ReportDate
+          t={t}
+          startTime={filters.selected.startTime}
+          endTime={filters.selected.endTime}
+        />
+        <TabsContainer
+          activeTab={activeTab}
+          onTabChange={tabIndex => this.setState({ activeTab: tabIndex })}
+        >
+          <TabsList>
+            {filters.selected.lines.map(item => (
+              <Tab key={item.equipmentDesc}>{item.equipmentDesc}</Tab>
+            ))}
+          </TabsList>
+          <TabsContent>
+            {filters.selected.lines.map(item => (
+              <TabPanel
+                key={item.equipmentDesc}
+                class={styles.tabsize}
+                visible={true}
+              >
+                <TabInfo
+                  t={t}
+                  lineId={item.equipmentId}
+                  lineDesc={item.equipmentDesc}
+                />
               </TabPanel>
-            </TabsContent>
-          </TabsContainer>
-        </div>
-      )
-    }
+            ))}
+          </TabsContent>
+        </TabsContainer>
+      </div>
+    )
   }
 
-  readReport = () => {
-    const { filters, t } = this.props
+  requiredFilters = () => {
+    const { t } = this.props
+    let error = getErrorMessages()
 
-    if (filters.areValid()) {
+    if (error.length > 0) {
       this.setState({
-        ...defaultState
+        error: {
+          title: t('Please complete the required filters'),
+          messages: error.map(message => t(message)),
+          received: true
+        }
       })
-
-      getReportData({ ...filters })
-        .then(data => {
-          this.setState({
-            data,
-            isLoading: false
-          })
-        })
-        .catch(error => {
-          const msg = error.response
-            ? t(error.response.data.ExceptionMessage)
-            : error.message
-          this.setState({
-            ...defaultState,
-            isLoading: false,
-            error: {
-              title: '',
-              messages: [msg]
-            }
-          })
-          showMsg({
-            type: 'error',
-            icon: 'exclamation-triangle',
-            message: msg,
-            position: '',
-            title: error.name,
-            closable: true,
-            show: true
-          })
-
-          if (this.props.onError) this.props.onError(error.response)
-        })
     } else {
       this.setState({
-        isLoading: false,
         error: {
-          title: 'Please complete the required filters',
-          messages: filters.getErrorMessages()
+          title: '',
+          messages: [],
+          received: true
         }
       })
     }
   }
 }
 
-export default Main
+const mapStateToProps = ({ filters, dataSource }) => {
+  return { filters, dataSource }
+}
+
+export default connect(mapStateToProps)(Main)

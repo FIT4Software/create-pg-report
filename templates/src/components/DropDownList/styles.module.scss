@@ -40,6 +40,8 @@
     outline: 0;
     list-style: none;
     z-index: 999;
+    max-height: 400px;
+    overflow: auto;
     li {
       padding: 1px 5px 1px 5px;
       line-height: 24px;

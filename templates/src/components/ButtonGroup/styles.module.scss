@@ -1,11 +1,13 @@
 .component {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
   box-sizing: border-box;
   div {
     flex: 1 1 auto;
+    min-width: 100px;
+    max-width: 150px;
   }
   div span {
     border-radius: 0;

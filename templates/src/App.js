@@ -1,36 +1,38 @@
-import React, { Component } from 'react'
-import FiltersContainer from './components/FiltersContainer'
+import React from 'react'
 import Layout from './components/Layout'
+import FiltersContainer from './components/FiltersContainer'
+import MessageScreen from './components/MessageScreen'
+import Notification from './components/Notification'
 import Filters from './views/Filters'
 import Main from './views/Main'
-import MessageScreen from './components/MessageScreen'
-import Exporter from './views/Main/Exporter'
-import Notification from './components/Notification'
-import { translate } from 'react-i18next'
+import Exporter from './views/Main/Report/Export/Exporter'
 import { getUrlParameter } from './services/helpers'
 import { axiosComplete, axiosStart } from './services/axiosConfig'
-import { getSelectedFilters } from './services/filters'
+import { getErrorMessages } from './services/filters'
 import { subscribeNotification } from './services/notification'
-import { onFiltersChange } from './services/filters'
+import { translate } from 'react-i18next'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateFilters } from './redux/ducks/filters'
+import { clearDataSource } from './redux/ducks/dataSource'
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
-    this.scheduled = false
     this.state = {
       showFilterPanel: false,
       messageScreen: {
         text: props.message
           ? props.message
           : !getUrlParameter('id')
-            ? 'Error to get report type. Please try again from Landing page.'
-            : '',
+          ? 'Error to get report type. Please try again from Landing page.'
+          : '',
         show: props.message || !getUrlParameter('id')
       },
       loading: { isLoading: false, definition: false },
-      filters: null,
       showModalExport: false,
-      showExportButton: true,
+      showExportButton: false,
+      showMainComponent: false,
       notification: {
         type: 'error',
         icon: 'star',
@@ -43,12 +45,13 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     axiosStart().subscribe(() => {
       this.setState({
         loading: { ...this.state.loading, isLoading: true }
       })
     })
+
     axiosComplete().subscribe(() => {
       this.setState({ loading: { ...this.state.loading, isLoading: false } })
     })
@@ -58,18 +61,11 @@ class App extends Component {
         notification: { ...this.state.notification, ...notification }
       })
     )
-    onFiltersChange().subscribe(({ scheduled }) => {
-      if (this.scheduled !== scheduled) {
-        this.scheduled = scheduled
-        this.setState({
-          showFilterPanel: true
-        })
-      }
-    })
+
     this.setState({ showFilterPanel: true })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     if (this.state.loading.definition && !this.state.loading.isLoading) {
       this.setState({
         loading: { ...this.state.loading, definition: false },
@@ -88,11 +84,14 @@ class App extends Component {
   }
 
   handleGoButton = () => {
+    this.props.updateFilters({ runTime: new Date() })
+    this.props.clearDataSource()
+
     this.setState({
       showFilterPanel: false,
-      filters: { ...getSelectedFilters() },
+      showExportButton: !getErrorMessages().length > 0,
+      showMainComponent: true,
       loading: { ...this.state.loading, definition: false },
-      showExportButton: true,
       messageScreen: {
         show: false,
         text: ''
@@ -118,36 +117,31 @@ class App extends Component {
     this.setState({ showModalExport: true })
   }
 
-  onExportMessage = (loading, message, status, callback) => {
-    this.setState(
-      {
-        loading: { isLoading: loading, definition: false },
-        messageScreen: {
-          show: loading,
-          text: message
-        },
-        showModalExport: status !== 'finished'
+  onExportMessage = (loading, message, status) => {
+    this.setState({
+      loading: { isLoading: loading, definition: false },
+      messageScreen: {
+        show: loading,
+        text: message
       },
-      () => {
-        if (callback) callback()
-      }
-    )
+      showModalExport: status !== 'finished'
+    })
   }
 
-  render() {
+  render = () => {
     const {
       showFilterPanel,
       loading,
-      filters,
       messageScreen,
       showModalExport,
       notification,
-      showExportButton
+      showExportButton,
+      showMainComponent
     } = this.state
     const { t } = this.props
 
     return (
-      <div>
+      <React.Fragment>
         <Notification
           show={notification.show}
           icon={notification.icon}
@@ -162,38 +156,45 @@ class App extends Component {
           text={messageScreen.text}
           type={loading.isLoading ? 'loading' : 'error'}
         />
-        {showModalExport &&
-          filters.areValid() && (
-            <Exporter
-              t={t}
-              onMessage={this.onExportMessage}
-              onCancel={() => this.setState({ showModalExport: false })}
-              filters={filters}
-            />
-          )}
+        {showModalExport && (
+          <Exporter
+            t={t}
+            onMessage={this.onExportMessage}
+            onCancel={() => this.setState({ showModalExport: false })}
+          />
+        )}
         <Layout
           onFilterBtnClick={this.handleFilterPanelBtn}
           filterActive={showFilterPanel}
           onGoClick={this.handleGoButton}
           onExportExcelClick={this.handleExportButton}
           isLoading={loading.isLoading}
-          showExportButton={filters && filters.areValid() && showExportButton}
+          showExportButton={showExportButton}
           t={t}
         >
-          {filters && (
+          {showMainComponent && (
             <Main
-              filters={filters}
+              isShowFilterPanel={showFilterPanel}
               t={t}
+              onCancel={() => this.setState({ showModalExport: false })}
               onError={() => this.setState({ showExportButton: false })}
+              onFilterBtnClick={this.handleFilterPanelBtn}
             />
           )}
         </Layout>
         <FiltersContainer open={showFilterPanel}>
           <Filters onRunDefinition={this.handleRunDefinition} t={t} />
         </FiltersContainer>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
-export default translate()(App)
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ updateFilters, clearDataSource }, dispatch)
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(translate()(App))

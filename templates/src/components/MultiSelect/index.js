@@ -79,8 +79,8 @@ class MultiSelectList extends Component {
       !Array.isArray(value) && value
         ? [value]
         : Array.isArray(value)
-          ? value
-          : []
+        ? value
+        : []
 
     if (arrayValues.length > 0) {
       return arrayValues.map(optionValue => {
@@ -100,14 +100,14 @@ class MultiSelectList extends Component {
   }
 
   onChange = selectedVal => {
-    const { onChange, value } = this.props
+    const { onChange, value, dataFrom } = this.props
     if (onChange) {
       let selectedValues = value
       if (selectedValues && Array.isArray(selectedValues))
         selectedValues.push(selectedVal)
       else if (selectedValues) selectedValues = [selectedValues, selectedVal]
 
-      onChange(selectedValues)
+      onChange(selectedValues, dataFrom)
 
       this.setState({ filter: '' })
     }
@@ -146,10 +146,11 @@ class MultiSelectList extends Component {
   }
 
   onRemoveMultiValue = (event, valueRemoved) => {
-    const { value, onChange } = this.props
+    const { value, onChange, dataFrom } = this.props
+
     if (onChange) {
       const selected = value.filter(val => val !== valueRemoved)
-      onChange(selected)
+      onChange(selected, dataFrom)
     }
     event.preventDefault()
     event.stopPropagation()

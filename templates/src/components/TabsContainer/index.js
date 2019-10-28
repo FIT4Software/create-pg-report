@@ -8,7 +8,7 @@ export { TabPanel, TabsContent, TabsList, Tab }
 
 export default class TabsContainer extends PureComponent {
   render() {
-    const { activeTab, onTabChange } = this.props
+    const { isChild = false, activeTab, onTabChange } = this.props
     let newTabList = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
         activeTab: activeTab,
@@ -20,6 +20,19 @@ export default class TabsContainer extends PureComponent {
       })
     })
 
-    return <div>{newTabList}</div>
+    let style = { overflow: 'hidden', display: 'flex' }
+    style = Object.assign(
+      {},
+      style,
+      !isChild
+        ? { height: '100%' }
+        : {
+            height: 'calc(100% - 16px)',
+            width: 'calc(100% - 16px)',
+            margin: '8px'
+          }
+    )
+
+    return <div style={style}>{newTabList}</div>
   }
 }

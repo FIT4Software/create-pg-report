@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from "react";
 
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
-export default class TopBarCenter extends Component {
+export default class TopBarCenter extends PureComponent {
   render() {
     let newContainer = React.Children.map(
       this.props.children,
       (child, index) => {
         return React.cloneElement(child, {
-          state: 'center'
-        })
+          state: "center"
+        });
       }
-    )
+    );
 
-    return <div className={styles.container}>{newContainer}</div>
+    return <div className={styles.container}>{newContainer}</div>;
   }
 }

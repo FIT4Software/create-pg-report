@@ -14,7 +14,7 @@
     > div {
       width: 50%;
       overflow: auto;
-      min-width: 500px;
+      // min-width: 500px;
     }
 
     label {
@@ -51,10 +51,9 @@
     margin-bottom: 10px;
     font-size: 11px;
   }
-
-  .message {
-    text-align: center;
-    padding: 30px 0;
+  .ppmbutton {
+    max-width: 300px;
+    font-size: 14px;
   }
 }
 .groupContainer {
@@ -73,7 +72,10 @@
 .separate {
   margin-top: 0.5rem;
 }
-
+.overflowHidden {
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
 @media only screen and (max-width: 1024px) {
   .content {
     flex-wrap: wrap;
@@ -81,4 +83,8 @@
       width: 100% !important;
     }
   }
+}
+
+.msbox-default-fontsize {
+  font-size: 11px;
 }

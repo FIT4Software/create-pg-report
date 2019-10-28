@@ -146,8 +146,8 @@
   white-space: nowrap;
 }
 
-.available-list .item > div,
-.selected-list .item > div {
+.available-list .item > a,
+.selected-list .item > a {
   padding: 0 25px;
   background: transparent;
 }

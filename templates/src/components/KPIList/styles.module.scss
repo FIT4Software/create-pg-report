@@ -1,6 +1,12 @@
+.kpi-list-container {
+  height: 100%;
+}
+
 .KPIList {
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
+  transition: 0.3s ease;
 }
 
 .loading {
@@ -12,4 +18,25 @@
   text-align: center;
   font-size: 40px;
   padding: 18px;
+}
+
+.kpiCollapse {
+  font-size: 15px;
+  color: #979797;
+  float: right;
+  right: 1px;
+  margin-top: 0px;
+  cursor: pointer;
+  background: #ededed;
+  height: calc(100% - 12px);
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.separator {
+  border-color: #ededed;
+  border-top: 0 solid #ededed;
+  margin: 0 5px;
 }

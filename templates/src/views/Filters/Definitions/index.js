@@ -11,6 +11,8 @@ import {
 import SaveDefinition from '../SaveDefinition'
 import DeleteDefinition from '../DeleteDefinition'
 import { showMsg } from '../../../services/notification'
+import { getErrorMessages } from './../../../services/filters'
+import store from './../../../redux/store'
 
 const OptionComponent = ({ value, children, onClick }) => {
   return (
@@ -55,9 +57,9 @@ class Definitions extends PureComponent {
 
   openModalSaveDefinition = () => {
     const { selectedDefinition, definitions } = this.state
-    const { selectedFilters, t } = this.props
+    const { t } = this.props
 
-    if (selectedFilters().areValid() && selectedFilters().timeOption !== -1) {
+    if (getErrorMessages().length <= 0) {
       if (selectedDefinition) {
         this.setState({
           nameDefinitionInput: definitions.find(
@@ -77,12 +79,7 @@ class Definitions extends PureComponent {
       showMsg({
         type: 'error',
         icon: 'exclamation-circle',
-        title:
-          selectedFilters().timeOption === -1
-            ? t(
-                'Cannot save definition with User Defined Date, please select a different time option'
-              )
-            : t('Please complete the required filters'),
+        title: t('Please complete the required filters'),
         message: '',
         position: 'top',
         closable: true,
@@ -96,25 +93,74 @@ class Definitions extends PureComponent {
   }
 
   onSaveSaveDef = () => {
-    const { selectedFilters, t } = this.props
+    const { t } = this.props
     const { selectedDefinition } = this.state
     let nameDef = this.state.nameDefinitionInput.trim()
     if (nameDef.length === 0) {
       this.setState({ invalidInput: true })
+      showMsg({
+        type: 'error',
+        icon: 'exclamation-circle',
+        message: '',
+        title: t('Please type a name first!'),
+        position: 'top',
+        closable: true,
+        show: true
+      })
     } else {
-      saveDefition(selectedDefinition, nameDef, selectedFilters()).then(() => {
-        this.readDefinitions()
-        this.setState({ showModalSave: false })
+      let error = false
+      this.state.definitions.forEach(def => {
+        if (def.Def_Name === nameDef && this.state.selectedDefinition === null)
+          error = true
+      })
+      if (error) {
         showMsg({
-          type: 'success',
-          icon: 'check',
+          type: 'error',
+          icon: 'exclamation-circle',
           message: '',
-          title: t('Definition saved successfully'),
+          title: t('The definition name already exist. please try other name!'),
           position: 'top',
           closable: true,
           show: true
         })
-      })
+      } else {
+        saveDefition(selectedDefinition, nameDef, store.getState().filters)
+          .then(() => {
+            this.readDefinitions()
+            this.setState({ showModalSave: false })
+            this.state.selectedDefinition === null
+              ? showMsg({
+                  type: 'success',
+                  icon: 'check',
+                  message: '',
+                  title: t('Definition saved successfully'),
+                  position: 'top',
+                  closable: true,
+                  show: true
+                })
+              : showMsg({
+                  type: 'success',
+                  icon: 'check',
+                  message: '',
+                  title: t('Definition edited successfully'),
+                  position: 'top',
+                  closable: true,
+                  show: true
+                })
+          })
+          .catch(error => {
+            console.error(error.response)
+            showMsg({
+              type: 'error',
+              icon: 'exclamation-circle',
+              message: 'Error!!!',
+              title: error.response.data.ExceptionMessage,
+              position: 'top',
+              closable: true,
+              show: true
+            })
+          })
+      }
     }
   }
 

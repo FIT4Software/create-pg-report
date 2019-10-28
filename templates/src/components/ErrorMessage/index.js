@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './styles.module.scss'
 import { Icon } from 'react-fa'
+import Button from './../Button'
 
 const ErrorMessage = ({
+  t,
+  onFilterBtnClick,
   messageList,
   title = '',
   icon = 'exclamation-triangle'
@@ -31,6 +34,8 @@ const ErrorMessage = ({
             {message}
           </span>
         ))}
+      <br />
+      <Button text={t('Back to filters')} onClick={onFilterBtnClick} />
     </div>
   )
 }

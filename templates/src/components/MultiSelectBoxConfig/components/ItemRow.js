@@ -17,9 +17,9 @@ const ItemRow = ({
       onClick={() => onItemClick(itemData, index)}
     >
       <span>{itemData && itemData[labelKey]}</span>
-      <div>
+      <a>
         <i className={icon} aria-hidden="true" />
-      </div>
+      </a>
     </div>
   )
 }

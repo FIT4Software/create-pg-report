@@ -7,6 +7,7 @@
   width: 100%;
   line-height: 2.7;
   text-align: center;
+  font-size: .7rem;
   cursor: pointer;
   flex: 0 0 auto;
   box-sizing: border-box;
@@ -15,6 +16,8 @@
   &.disable {
     cursor: not-allowed;
     background-color: lightgrey;
+    pointer-events: none;
+    opacity: .5;
   }
   &.active {
     background-color: var(--primary);

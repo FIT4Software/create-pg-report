@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import DropDownOption from '../DropDownOption'
 import styles from './styles.module.scss'
 import { Icon } from 'react-fa'
 
-class DropDownList extends Component {
+class DropDownList extends PureComponent {
   static defaultProps = {
     height: 'auto',
     width: '100%',
@@ -49,8 +49,8 @@ class DropDownList extends Component {
     return option
       ? option[labelKey]
       : defaultItem
-        ? defaultItem[labelKey]
-        : placeholder
+      ? defaultItem[labelKey]
+      : placeholder
   }
 
   forceRender = () => {
@@ -78,7 +78,8 @@ class DropDownList extends Component {
         height: !list ? 0 : height,
         left: bouding.left,
         width: bouding.width - 2,
-        top: bouding.top - 32
+        top: bouding.top - 32,
+        display: 'inline-table'
       }
     }
     return Object.assign(list ? { height } : {})

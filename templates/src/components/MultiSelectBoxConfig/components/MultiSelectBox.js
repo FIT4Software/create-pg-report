@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import ItemRow from "./ItemRow";
-import { List, AutoSizer } from "react-virtualized";
-import "./MultiSelectBox.css";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ItemRow from './ItemRow'
+import { List, AutoSizer } from 'react-virtualized'
+import './MultiSelectBox.css'
 
 class MultiSelectBox extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      filterText: ""
-    };
+      filterText: ''
+    }
   }
 
   getFilteredOptions() {
-    const { valueKey, labelKey, options, valueArray } = this.props;
-    const { filterText } = this.state;
+    const { valueKey, labelKey, options, valueArray } = this.props
+    const { filterText } = this.state
     return options
       .filter(
         item =>
@@ -25,39 +25,39 @@ class MultiSelectBox extends Component {
         item[labelKey]
           .toLocaleLowerCase()
           .includes(filterText.toLocaleLowerCase())
-      );
+      )
   }
 
   handleAddClick = selectedItem => {
-    const { onAdd } = this.props;
-    if (onAdd) onAdd(selectedItem);
-  };
+    const { onAdd } = this.props
+    if (onAdd) onAdd(selectedItem)
+  }
 
   handleRemoveClick = (selectedItem, index) => {
-    const { onRemove } = this.props;
-    if (onRemove) onRemove(selectedItem, index);
-  };
+    const { onRemove } = this.props
+    if (onRemove) onRemove(selectedItem, index)
+  }
 
   handleSelectAllClick = () => {
-    const { onSelectAll } = this.props;
-    if (onSelectAll) onSelectAll([...this.getFilteredOptions()]);
-  };
+    const { onSelectAll } = this.props
+    if (onSelectAll) onSelectAll([...this.getFilteredOptions()])
+  }
 
   handleRemoveAllClick = () => {
-    const { onRemoveAll } = this.props;
-    if (onRemoveAll) onRemoveAll();
-  };
+    const { onRemoveAll } = this.props
+    if (onRemoveAll) onRemoveAll()
+  }
 
   handleFilterChange = event => {
-    this.setState({ filterText: event.target.value });
-  };
+    this.setState({ filterText: event.target.value })
+  }
 
   getSelectedRow = index => {
-    const { valueKey, labelKey, options, valueArray } = this.props;
+    const { valueKey, labelKey, options, valueArray } = this.props
     return options.find(
       item => item[valueKey || labelKey] === valueArray[index]
-    );
-  };
+    )
+  }
 
   render() {
     const {
@@ -69,9 +69,9 @@ class MultiSelectBox extends Component {
       boxHeight,
       valueArray,
       config
-    } = this.props;
-    const { filterText } = this.state;
-    const availableData = this.getFilteredOptions();
+    } = this.props
+    const { filterText } = this.state
+    const availableData = this.getFilteredOptions()
 
     return (
       <div className="multi-select">
@@ -87,7 +87,7 @@ class MultiSelectBox extends Component {
             {config.allButton ? (
               <button onClick={this.handleSelectAllClick}>{addAllLabel}</button>
             ) : (
-              ""
+              ''
             )}
           </div>
           <AutoSizer disableHeight>
@@ -147,18 +147,18 @@ class MultiSelectBox extends Component {
           </AutoSizer>
         </div>
       </div>
-    );
+    )
   }
 }
 
 MultiSelectBox.defaultProps = {
-  addAllLabel: "Add All",
-  removeAllLabel: "Remove All",
-  searchPlaceHolder: "Search...",
-  selectedLabel: "Items selected",
+  addAllLabel: 'Add All',
+  removeAllLabel: 'Remove All',
+  searchPlaceHolder: 'Search...',
+  selectedLabel: 'Items selected',
   boxHeight: 173,
   valueArray: []
-};
+}
 
 MultiSelectBox.propTypes = {
   options: PropTypes.array.isRequired,
@@ -172,6 +172,6 @@ MultiSelectBox.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onSelectAll: PropTypes.func.isRequired,
   onRemoveAll: PropTypes.func.isRequired
-};
+}
 
-export default MultiSelectBox;
+export default MultiSelectBox

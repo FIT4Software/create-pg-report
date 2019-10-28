@@ -1,0 +1,35 @@
+.splitter {
+  width: 100%;
+  text-align: center;
+  font-size: 8px;
+  color: #575757;
+  height: 8px;
+  background: #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i {
+    cursor: pointer;
+    padding: 0 5px;
+    margin: 0 5px;
+  }
+}
+
+.separator {
+  border-top: 1px solid #939393;
+  border-bottom: 1px solid #939393;
+  width: 25px;
+}
+
+.splitHide {
+  display: none;
+}
+
+.splitMiddle {
+  min-height: 200px;
+  height: calc(50% - 4px);
+}
+
+.splitFull {
+  height: calc(100% - 8px);
+}

@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styles from './styles.module.scss'
 
-class TopBarDropDown extends Component {
+class TopBarDropDown extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -38,31 +38,30 @@ class TopBarDropDown extends Component {
       right
     } = this.props
     const { open } = this.state
-
     return (
       <div
         className={!open ? styles.root : [styles.root, styles.active].join(' ')}
         onClick={this.toogle}
       >
-        <span>
+        <div>
           {icon && <i className={icon + ' icon'} />}
           <span>
             {!icon ? ' ' : ''}
             {title}
           </span>{' '}
           <i className="fa fa-caret-down" />
-        </span>
+        </div>
         <ul
           className={open ? styles.open : ''}
           style={right ? { right: 0 } : { left: 0 }}
         >
           {options.map(option => (
             <li key={option[fieldValue]}>
-              <span
+              <div
                 onClick={() => (onOptionClick ? onOptionClick(option) : null)}
               >
-                {option[fieldDesc]}
-              </span>
+                <span>{option[fieldDesc]}</span>
+              </div>
             </li>
           ))}
         </ul>

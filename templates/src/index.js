@@ -6,10 +6,11 @@ import { i18nInit } from './services/locale'
 import { loggedIn } from './services/auth'
 import 'normalize.css'
 import './index.css'
-
 import 'devextreme/dist/css/dx.common.css'
 import 'devextreme/dist/css/dx.light.compact.css'
 import 'react-multiselect-box/build/css/index.css'
+import store from './redux/store'
+import { Provider } from 'react-redux'
 
 let message = ''
 
@@ -25,7 +26,9 @@ if (!loggedIn()) {
 
 ReactDOM.render(
   <I18nextProvider i18n={i18nInit()}>
-    <App message={message} />
+    <Provider store={store}>
+      <App message={message} />
+    </Provider>
   </I18nextProvider>,
   document.getElementById('root')
 )

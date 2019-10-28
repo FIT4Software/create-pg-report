@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import TopBar, { TopBarLeft, TopBarButton, TopBarRight } from './TopBar'
 import LanguageSelector from './LanguageSelector'
 import DateSelector from './DateSelector'
@@ -8,7 +8,7 @@ import { Icon } from 'react-fa'
 import styles from './styles.module.scss'
 import logo from '../../resources/PGPhaseLogo_100.png'
 
-class Layout extends Component {
+class Layout extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -45,24 +45,36 @@ class Layout extends Component {
               <img src={logo} alt="PG" className={styles.logo} />
             </div>
             <div className={styles.header}>
-              <h1 className={styles['hide-1024']}>PG iODS Report</h1>
+              <h1 className={styles['showMax1024']}>
+                <span>
+                  {window.innerWidth <= 1366
+                    ? process.env.REACT_APP_REPORT_NAME_SHORT //t(process.env.REACT_APP_REPORT_NAME_SHORT)
+                    : process.env.REACT_APP_REPORT_NAME //t(process.env.REACT_APP_REPORT_NAME)
+                  }
+                </span>
+                {/* <span className={styles.version}>{version}v</span> */}
+              </h1>
               <Icon
                 name="angle-right"
-                className={[styles['separator-icon'], styles['hide-1024']].join(
-                  ' '
-                )}
+                className={[
+                  styles['separator-icon'],
+                  styles['showMax1024']
+                ].join(' ')}
               />
-              <h2 className={`${styles['hide-768']} ${styles.site}`}>{site}</h2>
-              <Icon
+              <h2 className={`${styles['showMax1024']} ${styles.site}`}>
+                {site}
+              </h2>
+              {/* <Icon
                 name="angle-right"
-                className={`${styles['hide-768']} ${styles['separator-icon']}`}
-              />
+                className={`${styles["showMax1024"]} ${styles["separator-icon"]}`}
+              /> */}
             </div>
 
             <TopBarButton
               icon="filter"
               onClick={onFilterBtnClick}
               active={filterActive}
+              disabled={isLoading}
             />
             <DateSelector t={t} styles={styles} />
             <TopBarButton
@@ -82,13 +94,33 @@ class Layout extends Component {
             />
           </TopBarLeft>
           <TopBarRight>
-            <div className={`${styles['hide-1024']} ${styles['right-info']} `}>
+            <div
+              className={`${styles['showMax1024']} ${styles['right-info']} `}
+            >
+              <div className={`${styles['advice']} `}>
+                {t('Internal use only')}
+              </div>
               <span className={styles.username}>
-                <Icon name="user" className="icon" />
+                {/* <Icon
+                  name="user"
+                  className="icon"
+                  alt={profile ? profile.UserID : ""}
+                /> */}
 
                 {profile ? profile.UserID : ''}
               </span>
               <LanguageSelector t={t} />
+            </div>
+            <div
+              className={` ${styles['showMin1024']} ${styles['right-info']} `}
+            >
+              <div className={`${styles['advice']}`}>
+                {t('Internal use only')}
+              </div>
+              {/* <span className={styles.username}>
+                {profile ? profile.UserID : ""}
+              </span> */}
+              {/* <LanguageSelector t={t} /> */}
             </div>
           </TopBarRight>
         </TopBar>

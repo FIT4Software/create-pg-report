@@ -19,10 +19,13 @@ export default class TabsList extends PureComponent {
 
   componentDidMount() {
     this.handleScrollButtons()
+
+    window.addEventListener('resize', () => {
+      this.handleScrollButtons()
+    })
   }
 
   onForwardClick = () => {
-    // this.containerElement.scrollLeft += this.state.step
     animateScrollLeft(
       this.containerElement,
       this.containerElement.scrollLeft + this.state.step,
@@ -39,12 +42,14 @@ export default class TabsList extends PureComponent {
   }
 
   handleScrollButtons = () => {
-    const { scrollWidth, clientWidth, scrollLeft } = this.containerElement
+    if (this.containerElement !== null) {
+      const { scrollWidth, clientWidth, scrollLeft } = this.containerElement
 
-    this.setState({
-      forwardBtn: scrollWidth > clientWidth + scrollLeft,
-      backBtn: !(scrollLeft <= 0)
-    })
+      this.setState({
+        forwardBtn: scrollWidth > clientWidth + scrollLeft,
+        backBtn: !(scrollLeft <= 0)
+      })
+    }
   }
 
   setTabVisible = tabRef => {
@@ -66,15 +71,14 @@ export default class TabsList extends PureComponent {
 
     let newTabList = React.Children.map(this.props.children, (child, index) => {
       let active = activeTab === index
-      if (child)
-        return React.cloneElement(child, {
-          active,
-          ref: node => (this._input = node),
-          onTabClick: ref => {
-            this.setTabVisible(ref)
-            this.props.onTabClick(index)
-          }
-        })
+      return React.cloneElement(child, {
+        active,
+        ref: node => (this._input = node),
+        onTabClick: ref => {
+          this.setTabVisible(ref)
+          this.props.onTabClick(index)
+        }
+      })
     })
 
     return (

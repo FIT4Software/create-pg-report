@@ -5,7 +5,9 @@ const TabPanel = props => {
   return (
     <div
       className={
-        props.active ? styles.container + ' ' + styles.active : styles.container
+        props.active
+          ? styles.container + ' ' + styles.active + ' ' + props.class
+          : styles.container + ' ' + props.class
       }
     >
       {React.cloneElement(props.children, { active: props.active })}

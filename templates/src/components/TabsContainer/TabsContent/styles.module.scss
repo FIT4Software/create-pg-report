@@ -1,4 +1,5 @@
 .container {
   border: 1px solid var(--primary);
-  margin-top: 29px;
+  margin-top: 30px;
+  width: calc(100% - 4px);
 }

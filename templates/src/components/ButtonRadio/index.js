@@ -1,29 +1,29 @@
-import React, { Component } from 'react'
-import styles from './styles.module.scss'
-export default class ButtonSwitch extends Component {
-  onClick = event => {
+import React, { PureComponent } from "react";
+import styles from "./styles.module.scss";
+export default class ButtonSwitch extends PureComponent {
+  onClick = () => {
     this.props.onPress(this)
-  }
+  };
 
   onChange = event => {
     this.props.onChange(event)
-  }
+  };
 
   createStyles = () => {
+    console.log(this.props.disable)
     let names = [styles.component]
-    if (this.props.disabled) {
-      names.push(styles.disabled)
+    if (this.props.disable) {
+      names.push(styles.disable)
     }
-    if (this.props.checked) names.push(styles.active)
-    if (this.props.class) names.push(this.props.class)
+    if (this.props.checked === this.props.value) names.push(styles.active)
+    if (this.props.classes) names.push(this.props.classes)
     return names.join(' ')
   }
 
   render() {
     return (
-      <div>
+      <div className={this.props.classContainer}>
         <input
-          // id={this.props.id}
           name={this.props.name}
           className={styles.hide}
           type="radio"

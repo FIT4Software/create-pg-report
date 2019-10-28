@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styles from "./styles.module.scss";
-export default class ButtonGroup extends Component {
+export default class ButtonGroup extends PureComponent {
   createStyles = () => {
     let names = [styles.component];
     if (this.props.visible === false) {

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styles from './styles.module.scss'
-class FiltersContainer extends Component {
+class FiltersContainer extends PureComponent {
   render() {
     const { open, children } = this.props
     return (

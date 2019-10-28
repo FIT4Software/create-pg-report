@@ -1,7 +1,10 @@
 .container {
-    display: none;
+  display: none;
+  height: calc(100% - 1px);
+  width: calc(100% - 1px);
 }
 
 .active {
-    display: flex
+  display: flex;
+  flex-direction: column;
 }

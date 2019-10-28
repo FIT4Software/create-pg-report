@@ -106,18 +106,50 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 1330px) {
+.advice {
+  /* height: var(--advice-height);
+  width: var(--advice-width); */
+  /* right: calc(50% - var(--advice-width) / 2); */
+  padding: 0.2rem;
+  font-size: 0.9rem;
+  /* border-bottom-left-radius: var(--default-border-radius);
+  border-bottom-right-radius: var(--default-border-radius); */
+  border-radius: var(--default-border-radius);
+  background-color: red;
+  color: var(--light);
+  text-align: center;
+  display: flex;
+  /* position: absolute; */
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  z-index: 9999999;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
   .userDefinedInputs {
     display: none !important;
   }
-}
-@media (max-width: 1024px) {
-  .hide-1024 {
+  .showMax1024 {
     display: none !important;
   }
+
+  .showMin1024 {
+    display: flex !important;
+  }
+
+  .username {
+    padding-left: 5px;
+  }
 }
-@media (max-width: 820px) {
-  .hide-768 {
+@media (min-width: 1025px) {
+  .showMax1024 {
+    display: flex !important;
+  }
+  .showMin1024 {
     display: none !important;
   }
 }

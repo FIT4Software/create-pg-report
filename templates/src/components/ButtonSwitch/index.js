@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import styles from "./styles.module.scss";
+import React, { Component } from 'react'
+import styles from './styles.module.scss'
 export default class ButtonSwitch extends Component {
   onClick = () => {
-    this.props.onPress(this);
-  };
+    this.props.onPress(this)
+  }
 
   onChange = () => {
-    this.props.onChange(this);
-  };
+    this.props.onChange(this)
+  }
 
   createStyles = () => {
-    let names = [styles.component];
-    if (this.props.disabled) {
-      names.push(styles.disabled);
+    let names = [styles.component]
+    if (this.props.disable) {
+      names.push(styles.disable)
     }
-    if (this.props.checked) names.push(styles.active);
-    if (this.props.class) names.push(this.props.class);
-    return names.join(" ");
-  };
+    if (this.props.checked) names.push(styles.active)
+    if (this.props.class) names.push(this.props.class)
+    return names.join(' ')
+  }
 
   render() {
-    const { checked } = this.props;
+    const { checked } = this.props
 
     return (
       <div>
@@ -29,13 +29,13 @@ export default class ButtonSwitch extends Component {
           name={this.props.id}
           className={styles.hide}
           type="checkbox"
-          checked={checked ? "checked" : ""}
+          checked={checked ? 'checked' : ''}
           onChange={this.onChange}
         />
         <span className={this.createStyles()} onClick={this.onClick}>
           {this.props.text}
         </span>
       </div>
-    );
+    )
   }
 }
