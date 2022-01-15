@@ -20,7 +20,7 @@
     "colors": "^1.3.3",
     "edit-json-file": "^1.2.0",
     "fs-extra": "^7.0.1",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   },
   "bin": {
     "create-pg-report": "index.js"
