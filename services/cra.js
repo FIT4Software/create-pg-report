@@ -1,9 +1,13 @@
 const createReactApp = (appName, shell) => {
   return new Promise(resolve => {
     if (appName) {
-      shell.exec(`npx create-react-app ${appName}`, () => {
+      shell.exec(`npm install create-react-app -g`, () => {
+    
+         shell.exec(`npm init react-app ${appName}`, () => {
         console.log('Created react app!')
         resolve(true)
+      })
+       
       })
     } else {
       console.log('\nNo app name was provided.'.red)
